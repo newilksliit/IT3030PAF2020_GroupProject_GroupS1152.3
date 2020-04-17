@@ -10,10 +10,6 @@ public class Pharm_Drug {
 		Connection con = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			// Provide the correct details: DBServer/DBName, username, password
-			// con =
-			// DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/item_database",
-			// "root", "");
 
 			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/pharmacy_db", "root", "");
 
@@ -23,7 +19,6 @@ public class Pharm_Drug {
 		return con;
 	}
 
-	
 	/////////////// Insert New Drugs - Pharmacist ////////////////
 	public String insertDrugs(String name, Integer quantity, String strength, String expiredate, Double unitprice,
 			Integer typeid, Integer categoryid) {
@@ -62,24 +57,16 @@ public class Pharm_Drug {
 		return output;
 	}
 
-	
 	/////////////// Read Drug Details - Pharmacist ////////////////
 	public String readDrugs() {
 		String output = "";
-		// String htoutput = "";
 		JSONObject json = new JSONObject();
+		
 		try {
 			Connection con = connect();
 			if (con == null) {
 				return "Error while connecting to the database for reading.";
 			}
-			// Prepare the html table to be displayed
-
-			// under
-			// htoutput = "<table border=\"1\"><tr><th>Drug Name
-			// </th><th>Quantity</th><th>Strength</th><th>Expire Date</th><th>Unit
-			// Price</th><th>Drug Type</th><th>Drug Category</th></tr>";
-			// up
 
 			String query = "select d.drugID, d.drugName, d.quantity, d.strength, d.ExpireDate, d.UnitPrice, t.typeName, c.categoryName from drugs d, type t, category c where t.typeID=d.typeID and c.categoryID=d.categoryID order by d.drugID";
 
@@ -109,28 +96,19 @@ public class Pharm_Drug {
 				drug.put("typeName", typeName);
 				drug.put("categoryName", categoryName);
 				array.put(drug);
-
-				// under
-				// htoutput += "<tr><td>" + drugName + "</td><td>" + quantity + "</td><td>" +
-				// strength + "</td><td>" + ExpireDate + "</td>";
-				// up
 			}
+			
 			json.put("List", array);
 			con.close();
-			// Complete the html table
-			// htoutput += "</table>";
 
 		} catch (Exception e) {
 			output = "Error while reading the drug details!";
 			System.err.println(e.getMessage());
 		}
 		output = json.toString();
-
-		// changed under ->'output' to 'htoutput'
 		return output;
 	}
 
-	
 	/////////////// Update Drug Details - Pharmacist ////////////////
 	public String updateDrugs(Integer ID, String name, Integer quantity, String strength, String expiredate,
 			Double unitprice, Integer typeid, Integer categoryid) {
@@ -142,7 +120,6 @@ public class Pharm_Drug {
 				return "Error while connecting to the database for updating.";
 			}
 
-			// create a prepared statement
 			String query = "UPDATE drugs SET drugName=?,quantity=?,strength=?,ExpireDate=?, UnitPrice=?, typeID=?, categoryID=? WHERE drugID=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 
@@ -168,7 +145,6 @@ public class Pharm_Drug {
 		return output;
 	}
 
-	
 	/////////////// Delete Drug Details - Pharmacist ////////////////
 	public String deleteDrugs(Integer ID) {
 		String output = "";

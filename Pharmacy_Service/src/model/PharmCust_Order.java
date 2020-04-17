@@ -37,6 +37,7 @@ public class PharmCust_Order {
 			ResultSet rs = stmt.executeQuery(query);
 
 			JSONArray array = new JSONArray();
+
 			// iterate through the rows in the result set
 			while (rs.next()) {
 				String drugID = Integer.toString(rs.getInt("drugID"));
@@ -45,7 +46,6 @@ public class PharmCust_Order {
 				String strength = rs.getString("strength");
 				String ExpireDate = rs.getString("ExpireDate");
 				String UnitPrice = Double.toString(rs.getDouble("UnitPrice"));
-				// String typeName = rs.getString("typeName");
 				String categoryName = rs.getString("categoryName");
 
 				JSONObject drug = new JSONObject();
@@ -56,7 +56,6 @@ public class PharmCust_Order {
 				drug.put("Strength", strength);
 				drug.put("Expire Date", ExpireDate);
 				drug.put("Unit Price", UnitPrice);
-				// drug.put("typeName", typeName);
 				drug.put("Category Name", categoryName);
 				array.put(drug);
 			}
@@ -99,8 +98,6 @@ public class PharmCust_Order {
 				String strength = rs.getString("strength");
 				String ExpireDate = rs.getString("ExpireDate");
 				String UnitPrice = Double.toString(rs.getDouble("UnitPrice"));
-				// String typeID = Integer.toString(rs.getInt("typeID"));
-				// String categoryID = Integer.toString(rs.getInt("categoryID"));
 
 				JSONObject drug = new JSONObject();
 
@@ -110,16 +107,15 @@ public class PharmCust_Order {
 				drug.put("strength", strength);
 				drug.put("ExpireDate", ExpireDate);
 				drug.put("UnitPrice", UnitPrice);
-				// drug.put("typeID", typeID);
-				// drug.put("categoryID", categoryID);
 				array.put(drug);
 
-				///////////////// insert into Temp Table //////////////////////////////////
+				///////////////// Insert selected drug details into Temp Table
+				///////////////// //////////////////////////////////
 				String addToTempquery = "insert into `#temptable`(`drugid`, `name`, `strength`, `availableQuantity`, `unitprice`) values ('"
 						+ drugID + "', '" + drugName + "', '" + strength + "', '" + quantity + "', '" + UnitPrice
 						+ "')";
-				PreparedStatement preparedStmtToTemp = con.prepareStatement(addToTempquery);
 
+				PreparedStatement preparedStmtToTemp = con.prepareStatement(addToTempquery);
 				preparedStmtToTemp.execute();
 				/////////////////////////////////////////////////////////////////////////////
 			}
@@ -160,6 +156,8 @@ public class PharmCust_Order {
 			}
 			lineTot = unitPrice * quantity;
 
+			//// Available quantity must be more than the quantity that customer asked /////
+			//// Also Pharmacy keeps/maintains stock limit of 10 //////////////
 			if (quantity < (quantity_available - 10)) {
 				// create a prepared statement
 				String query = "UPDATE `#temptable` SET actualQuantity=?, lineTotal='" + lineTot + "' WHERE tempID=?";
@@ -215,13 +213,15 @@ public class PharmCust_Order {
 		return output;
 	}
 
-	/////// Read/ View Without Prescription ORDER --> BUY /////////
-	/// with Total Price //////// Must direct to online payment portal///
-	///////// Data should pass to an INVOICE template //////////////
+	/////// Read or View Without Prescription ORDER --> ////////
+	////// This request will generate from BUY ////////////////
+	////// Calculate Total Price of Order ////////////////////
+	////// *** Must direct to online payment portal///////////////
+	///////// **** Data should pass to an INVOICE template ////////
 	public String buyOrder() {
 		String output = "";
 		Double TotalPrice = 0.0;
-		Integer order_ID=0;
+		Integer order_ID = 0;
 
 		JSONObject json = new JSONObject();
 
@@ -231,22 +231,23 @@ public class PharmCust_Order {
 				return "Error while connecting to the database for reading.";
 			}
 
-			///////////////// insert into Order Table
-			///////////////// //////////////////////////////////
-			Integer UserID = 2; // Must take User ID according to login*********
+			//////// insert into Order Table ////////////
+			Integer UserID = 2; // Must take User ID according to login******
 
-			String addOrderquery = "insert into `order`(`orderDate`, `confirmationStatus`, `userID`) values (current_date(), 'Confirmed', '" + UserID + "')";
-			PreparedStatement preparedStmtToOrder = con.prepareStatement(addOrderquery, Statement.RETURN_GENERATED_KEYS);
+			String addOrderquery = "insert into `order`(`orderDate`, `confirmationStatus`, `userID`) values (current_date(), 'Confirmed', '"
+					+ UserID + "')";
+
+			PreparedStatement preparedStmtToOrder = con.prepareStatement(addOrderquery,
+					Statement.RETURN_GENERATED_KEYS); // Get Auto generated oderID for this insert
 			preparedStmtToOrder.execute();
 			ResultSet AutoID = preparedStmtToOrder.getGeneratedKeys();
-			
-			 if (AutoID.next()) {
-				 order_ID = AutoID.getInt(1);
-			 }
-		            
-			
+
+			if (AutoID.next()) {
+				order_ID = AutoID.getInt(1);
+			}
 			////////////////////////////////////////////////////
 
+			///// Get records from Temptable to add them into Order details///
 			String query = "select * from `#temptable` order by `tempID`";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -275,26 +276,30 @@ public class PharmCust_Order {
 				order.put("Quantity", actualQuantity);
 				order.put("Line Total", lineTotal);
 				array.put(order);
+
+				//////////// insert into Order DetailsTable ///////////////
+				String addOrderDetailsquery = "insert into `orderdetails`(`orderID`, `drugID`, `quantity`) values ('"
+						+ order_ID + "', '" + drugid + "','" + actualQuantity + "')";
 				
-				///////////////// insert into Order DetailsTable
-				///////////////// //////////////////////////////////
-				String addOrderDetailsquery = "insert into `orderdetails`(`orderID`, `drugID`, `quantity`) values ('"+order_ID+"', '"+drugid+"','"+actualQuantity+"')";
 				PreparedStatement PrepStmtToOrderDetails = con.prepareStatement(addOrderDetailsquery);
 				PrepStmtToOrderDetails.execute();
-				/////////////////////////////////////////////////////////////////////////////
+				/////////////////////////////////////////////////////////////
 			}
 			json.put("List", array);
 
+			//////// Calculate Total Price and get it ///////////
 			String query1 = "select sum(lineTotal) AS TotalP from `#temptable`";
 			Statement stmt1 = con.createStatement();
+			
 			ResultSet rs1 = stmt1.executeQuery(query1);
 			while (rs1.next()) {
 				TotalPrice = rs1.getDouble("TotalP");
 			}
 
-
 			///////// Update Total Price //////////////////
-			String updateTotalPricequery = "UPDATE `order` SET totalPrice='" + TotalPrice + "' WHERE orderID='" + order_ID+"'";
+			String updateTotalPricequery = "UPDATE `order` SET totalPrice='" + TotalPrice + "' WHERE orderID='"
+					+ order_ID + "'";
+			
 			PreparedStatement preparedStmtUpdate = con.prepareStatement(updateTotalPricequery);
 			preparedStmtUpdate.execute();
 			////////////////////////////////////////////////////
