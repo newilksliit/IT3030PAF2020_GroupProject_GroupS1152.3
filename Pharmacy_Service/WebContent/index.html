@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+<!-- Above - controls the alignment of search bar and 'previous' 'pg no' 'next' buttons -->
+
+<script type="text/javascript" language="javascript"
+	src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+<script type="text/javascript" language="javascript"
+	src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<!-- Can view data inside the table, search part and show part bcz of the above script. If removed, data is not visible inside the table -->
+
+
+<head>
+<meta charset="ISO-8859-1">
+
+<style>
+table#tab, th, td {
+	border: 1px solid #ddd;
+	padding: 15px;
+	text-align: left;
+}
+
+th {
+	background: #E6E6FA;
+}
+</style>
+
+<title>View Drug List</title>
+</head>
+
+
+<script>
+	$(document).ready(function() {
+		druglist();
+	});
+
+	function druglist() {
+		var l = "";
+		setTimeout(function() {
+			$
+					.ajax({
+						url : 'http://localhost:8090/Pharmacy_Service/Pharmacy_Service/Pharm_Drug/',
+						contentType : "application/json",
+						type : 'get',
+						dataType : 'json',
+						timeout : 30000,
+						success : function(data) {
+							console.log(data)
+							$('#tab').dataTable({
+								"aaData" : data.List,
+								"bDestroy" : true,
+								"columns" : [ {
+									"data" : "drugName"
+								}, {
+									"data" : "quantity"
+								}, {
+									"data" : "strength"
+								}, {
+									"data" : "ExpireDate"
+								}, {
+									"data" : "UnitPrice"
+								}, {
+									"data" : "typeName"
+								}, {
+									"data" : "categoryName"
+								} ]
+							})
+						},
+					});
+		});
+	}
+</script>
+
+<body>
+
+	<table id="tab" style="width: 100%">
+		<thead>
+			<tr>
+				<th>Drug Name</th>
+				<th>Quantity</th>
+				<th>Strength</th>
+				<th>Expire Date</th>
+				<th>Unit Price</th>
+				<th>Type Name</th>
+				<th>Category Name</th>
+
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+
+</body>
+</html>
