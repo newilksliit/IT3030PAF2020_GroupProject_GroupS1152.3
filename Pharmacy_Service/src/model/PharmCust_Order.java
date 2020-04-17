@@ -238,7 +238,7 @@ public class PharmCust_Order {
 					+ UserID + "')";
 
 			PreparedStatement preparedStmtToOrder = con.prepareStatement(addOrderquery,
-					Statement.RETURN_GENERATED_KEYS); // Get Auto generated oderID for this insert
+					Statement.RETURN_GENERATED_KEYS); // Get Auto generated oderID for this record
 			preparedStmtToOrder.execute();
 			ResultSet AutoID = preparedStmtToOrder.getGeneratedKeys();
 
@@ -257,12 +257,12 @@ public class PharmCust_Order {
 			// iterate through the rows in the result set
 			while (rs.next()) {
 				String tempID = Integer.toString(rs.getInt("tempID"));
-				String drugid = Integer.toString(rs.getInt("drugid"));
+				Integer drugid = rs.getInt("drugid");
 				String name = rs.getString("name");
 				String strength = rs.getString("strength");
-				String availableQuantity = Integer.toString(rs.getInt("availableQuantity"));
+				Integer availableQuantity = rs.getInt("availableQuantity");
 				String unitprice = Double.toString(rs.getDouble("unitprice"));
-				String actualQuantity = Integer.toString(rs.getInt("actualQuantity"));
+				Integer actualQuantity = rs.getInt("actualQuantity");
 				String lineTotal = Double.toString(rs.getDouble("lineTotal"));
 
 				JSONObject order = new JSONObject();
@@ -284,6 +284,16 @@ public class PharmCust_Order {
 				PreparedStatement PrepStmtToOrderDetails = con.prepareStatement(addOrderDetailsquery);
 				PrepStmtToOrderDetails.execute();
 				/////////////////////////////////////////////////////////////
+				
+				/////////// Adjust or update drug stock quantity ///////////////
+				/////////// reduce the quantity of order from drug stock /////////
+				Integer size_quantity = 0;
+				size_quantity=availableQuantity-actualQuantity;
+				
+				String updatedrug_quantity="UPDATE `drugs` SET `quantity`='" + size_quantity + "' WHERE `drugID`='"+ drugid +"'";
+				PreparedStatement preparedStmtUpd_Quantity = con.prepareStatement(updatedrug_quantity);
+				preparedStmtUpd_Quantity.execute();
+				//////////////////////////////////////////////////////////				
 			}
 			json.put("List", array);
 
