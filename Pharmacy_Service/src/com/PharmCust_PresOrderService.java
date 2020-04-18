@@ -29,23 +29,22 @@ import com.google.gson.*;
 
 import org.apache.commons.io.IOUtils;
 
-
 @Path("/PharmCust_PresOrder")
-public class PharmCust_PresOrderService {	
+public class PharmCust_PresOrderService {
 	PharmCust_PresOrder orderObj = new PharmCust_PresOrder();
-	
+
 	@POST
 	@Path("/image")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String uploadPrescription(@FormDataParam("prescriptionImage") InputStream inputStream,
-			@FormDataParam("prescriptionImage") FormDataContentDisposition fileDetail,
-			@FormDataParam("orderId") Integer orderId) throws IOException, URISyntaxException {
+			@FormDataParam("prescriptionImage") FormDataContentDisposition fileDetail)
+			throws IOException, URISyntaxException {
 
-		
-		//String fullPath = URLDecoder.decode(this.getClass().getClassLoader().getResource("").getPath(), "UTF-8");
-		//String pathArray[] = fullPath.split("/WEB-INF/classes/");
-		String SAVE_DIRECTORY = "D:\\eclipse-workspace\\Pharmacy_Service\\WebContent\\images_prescription";
+		///// Give a path to save prescription images
+		// String SAVE_DIRECTORY =
+		///// "D:\\git-remote\\IT3030PAF2020_GroupProject_GroupS1152.3\\Pharmacy_Service\\WebContent\\images_prescription";
+		String SAVE_DIRECTORY = "C:\\Prescription_Images";
 
 		if (inputStream != null || fileDetail != null) {
 
@@ -56,7 +55,7 @@ public class PharmCust_PresOrderService {
 			try {
 				saveToFile(inputStream, uploadedFileLocation);
 
-				String status = orderObj.insertPrescriptionImages(orderId, fileDetail.getFileName(), SAVE_DIRECTORY);
+				String status = orderObj.insertPrescriptionImages(fileDetail.getFileName(), SAVE_DIRECTORY);
 
 				if (status.equals("Successful"))
 					return "Successful";
@@ -93,8 +92,4 @@ public class PharmCust_PresOrderService {
 			file.mkdir();
 		}
 	}
-
-	
-
-
 }
