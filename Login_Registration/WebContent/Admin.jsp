@@ -21,7 +21,7 @@
 	<%
 		try{
 			
-			Class.forName("com.mysql.jdbc.Driver").newInstance();			
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();			
 			   
 			Connection con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/hdb", "root", "");
 			
