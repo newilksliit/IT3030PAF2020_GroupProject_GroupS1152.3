@@ -9,11 +9,12 @@ import javax.ws.rs.core.MediaType;
 //For JSON 
 import com.google.gson.*; 
  
-//For XML import org.jsoup.*; 
+//For XML 
+import org.jsoup.*; 
 import org.jsoup.parser.*; 
 import org.jsoup.nodes.Document; 
  
-@Path("/Patient") 
+@Path("/Patients") 
 public class PatientService { 
 	
 	Patient patientObj = new Patient(); 
@@ -21,8 +22,8 @@ public class PatientService {
 	@GET 
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML) 
-	public String insertPatient(){
+	public String readPatients(){
 		
-		return patientObj.insertPatient(null, null, null, null, null, null, 0, null, 0);  
+		return patientObj.readPatients();  
 		}
 	} 
