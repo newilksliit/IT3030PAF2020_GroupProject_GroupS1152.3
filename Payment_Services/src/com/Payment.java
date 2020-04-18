@@ -11,31 +11,33 @@ import java.sql.Date;
 
 public class Payment {
 
-	////////////Private attributes/////
-	private 	int		refNumber	;
-	private 	Date 	date		;
-	private		float	amount		;
-	////////////end/////////////////////
-	
-	///////////getters setters	///////
-	public float getAmount() {
-		return amount;
+	//////////// enums /////////////
+	public enum Type {
+		ONLINE, MANUAL
 	}
-	public void setAmount(float amount) {
-		this.amount = amount;
+
+	public enum Method {
+		CASH, DEBIT, CHEQUE
 	}
-	public Date getDate() {
-		return date;
+
+	public enum Status {
+		PENDING, PAID, RETURNED
 	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	public int getRefNumber() {
-		return refNumber;
-	}
-	public void setRefNumber(int refNumber) {
-		this.refNumber = refNumber;
-	}
-	/////////////end///////////////////////
-	
+	/////////// end /////////////
+
+	//////////// attributes /////
+	public int paymentId;
+	public String userId;
+	public String appointmentId;
+	public Date date;
+	public Type type;
+	public Method method;
+	public Status status;
+	public double amount;
+	//////////// end//////////////////////
+
+	/////////// getters setters ///////
+
+	///////////// end///////////////////////
+
 }
