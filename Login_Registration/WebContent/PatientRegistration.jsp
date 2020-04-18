@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label for="pusername" class="col-sm-3 control-label">username</label>
                     <div class="col-sm-9">
-                        <input type="text" id="fName" placeholder="Please start with p eg: pfernando34" class="form-control" autofocus>
+                        <input type="text" id="pusername" placeholder="Please start with p eg: pfernando34" class="form-control" autofocus>
                     </div>
                 </div>
                 <div class="form-group">
@@ -62,7 +62,7 @@
                 <div class="form-group">
                     <label for="ccNo" class="col-sm-3 control-label">Credit Card Number* </label>
                     <div class="col-sm-9">
-                        <input type="number" id="ccNo" placeholder="Phone number" class="form-control">
+                        <input type="number" id="ccNo" placeholder="Credit Card Number" class="form-control">
                         <span class="help-block">Your Credit Card number won't be disclosed anywhere </span>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                         <span class="help-block">*Required fields</span>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Register</button>
+                <button action="Login.jsp"type="submit" class="btn btn-primary btn-block">Register</button>
             </form> 
         </div> 
         </body>
