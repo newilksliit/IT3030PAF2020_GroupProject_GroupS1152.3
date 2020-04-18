@@ -19,6 +19,8 @@ public class PharmCust_PresOrder {
 		return con;
 	}
 
+	/////////////// Insert Prescription image - Customer ////////////////
+	////////////////////////////////////////////////////////////////////
 	public String insertPrescriptionImages(String imageName, String imagePath) {
 		String status = "";
 

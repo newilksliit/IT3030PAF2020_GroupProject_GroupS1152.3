@@ -18,7 +18,7 @@ public class PharmCust_Order {
 		return con;
 	}
 
-	/////////////// Read Only Available Drugs to buy ////////////////
+	/////////////// Read Only Available Drugs to buy  - Customer ////////////////
 	// Consider ----> Quantity > 10 AND check Expire date AND Type OTC [id=1] ////
 	//////////////////////////////////////////////////////////////////////////////
 	public String readAvailableDrugs() {
@@ -70,7 +70,7 @@ public class PharmCust_Order {
 		return output;
 	}
 
-	/////////// Read Drugs by input parameter - drug ID //////////////
+	/// Read Drugs by input parameter - drug ID - Customer ///
 	///// *******Scenario - Customer select a drug to buy******* ////////
 	///////// Consider ----> Quantity should be more than 10 //////////////
 	public String readDrugsByID(Integer ID) {
@@ -130,7 +130,7 @@ public class PharmCust_Order {
 		return output;
 	}
 
-	//////////// Update TempTable - add Quantity /////////////////
+	//////////// Update TempTable - add Quantity - Customer //////////
 	////// ***** Scenario - Customer enter the quantity he wants to buy****/////
 	//////// According to quantity, Line Total will be calculated and updated //////
 	/////////// ///////////////////////////////////////////////////////////////////
@@ -182,7 +182,7 @@ public class PharmCust_Order {
 		return output;
 	}
 
-	//////////// Delete a listed Drug from TempTable ///////////
+	/// Delete a listed Drug from TempTable - Customer /////
 	//// **** Scenario - Customer deleted a listed drug from buying *****//////
 	/////////// ////////////////////////////////////////////////////////////
 	public String deleteListedDrug(Integer ID) {
@@ -214,7 +214,7 @@ public class PharmCust_Order {
 	}
 
 	/////// Read or View Without Prescription ORDER --> ////////
-	////// This request will generate from BUY ////////////////
+	////// This request will generate from BUY - Customer //////
 	////// Calculate Total Price of Order ////////////////////
 	////// *** Must direct to online payment portal///////////////
 	///////// **** Data should pass to an INVOICE template ////////
@@ -245,7 +245,7 @@ public class PharmCust_Order {
 			if (AutoID.next()) {
 				order_ID = AutoID.getInt(1);
 			}
-			////////////////////////////////////////////////////
+			//////===========================================////////
 
 			///// Get records from Temptable to add them into Order details///
 			String query = "select * from `#temptable` order by `tempID`";
@@ -283,7 +283,7 @@ public class PharmCust_Order {
 				
 				PreparedStatement PrepStmtToOrderDetails = con.prepareStatement(addOrderDetailsquery);
 				PrepStmtToOrderDetails.execute();
-				/////////////////////////////////////////////////////////////
+				/////===============================================///////
 				
 				/////////// Adjust or update drug stock quantity ///////////////
 				/////////// reduce the quantity of order from drug stock /////////
@@ -293,7 +293,7 @@ public class PharmCust_Order {
 				String updatedrug_quantity="UPDATE `drugs` SET `quantity`='" + size_quantity + "' WHERE `drugID`='"+ drugid +"'";
 				PreparedStatement preparedStmtUpd_Quantity = con.prepareStatement(updatedrug_quantity);
 				preparedStmtUpd_Quantity.execute();
-				//////////////////////////////////////////////////////////				
+				///////============================================//////				
 			}
 			json.put("List", array);
 
@@ -312,7 +312,7 @@ public class PharmCust_Order {
 			
 			PreparedStatement preparedStmtUpdate = con.prepareStatement(updateTotalPricequery);
 			preparedStmtUpdate.execute();
-			////////////////////////////////////////////////////
+			///////==============================================/////
 
 			con.close();
 
