@@ -31,8 +31,12 @@ import org.apache.commons.io.IOUtils;
 
 @Path("/PharmCust_PresOrder")
 public class PharmCust_PresOrderService {
+	
 	PharmCust_PresOrder orderObj = new PharmCust_PresOrder();
 
+	//////
+	/// Prescription Orders - Upload Prescription - Customer ////
+	////////////////////////////////////////////////////////////
 	@POST
 	@Path("/image")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -41,10 +45,9 @@ public class PharmCust_PresOrderService {
 			@FormDataParam("prescriptionImage") FormDataContentDisposition fileDetail)
 			throws IOException, URISyntaxException {
 
-		///// Give a path to save prescription images
-		// String SAVE_DIRECTORY =
 		///// "D:\\git-remote\\IT3030PAF2020_GroupProject_GroupS1152.3\\Pharmacy_Service\\WebContent\\images_prescription";
-		String SAVE_DIRECTORY = "C:\\Prescription_Images";
+		
+		String SAVE_DIRECTORY = "C:\\Prescription_Images"; // Can change the path 
 
 		if (inputStream != null || fileDetail != null) {
 
