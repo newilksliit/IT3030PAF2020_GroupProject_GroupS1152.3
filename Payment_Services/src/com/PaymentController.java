@@ -17,11 +17,11 @@ import com.Payment.Type;
 public class PaymentController {
 
 	/* Database connection */
-	private String url = "127.0.0.1:3306/healthcare";
-	private String username = "root";
-	private String password = "root";
+	private static String url = "127.0.0.1:3306/healthcare";
+	private static String username = "root";
+	private static String password = "root";
 
-	private Connection connect() {
+	private static Connection connect() {
 		Connection con = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -34,10 +34,9 @@ public class PaymentController {
 		return con;
 	}
 
-	public List<Payment> readItems() {
+	public static List<Payment> readItems() {
 
 		List<Payment> output = new ArrayList<Payment>();
-		;
 
 		try {
 			Connection con = connect();
@@ -74,7 +73,7 @@ public class PaymentController {
 		return output;
 	}
 
-	public String insertItem(Payment payment) {
+	public static String insertItem(Payment p) {
 		String output = "";
 		try {
 			Connection con = connect();
@@ -82,15 +81,16 @@ public class PaymentController {
 				return "Error while connecting to the database for inserting.";
 			}
 			// create a prepared statement
-			String query = "INSERT INTO `tblpayment` (`user_id`, `appointment_id`, `type`, `method`, `status`, `amount`+ ) + VALUES (?,?,?,?,?,?);";
+			String query = "INSERT INTO `tblpayment` (`user_id`, `appointment_id`, `type`, `method`, `status`, `amount` ) VALUES (?,?,?,?,?,?);";
 
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
-			preparedStmt.setString(1, "gfd");
-			preparedStmt.setString(2, "fdg");
-			preparedStmt.setString(3, "manual");
-			preparedStmt.setString(4, "cash");
-			preparedStmt.setDouble(5, 12.12);
+			preparedStmt.setString(1, p.userId);
+			preparedStmt.setString(2, p.appointmentId);
+			preparedStmt.setString(3, p.type.toString());
+			preparedStmt.setString(4, p.method.toString());
+			preparedStmt.setString(5, p.status.toString());
+			preparedStmt.setDouble(6, p.amount);
 
 			// execute the statement
 			preparedStmt.execute();
@@ -98,6 +98,61 @@ public class PaymentController {
 			output = "Inserted successfully";
 		} catch (Exception e) {
 			output = "Error while inserting the item.";
+			System.err.println(e.getMessage());
+		}
+		return output;
+	}
+
+	public static String updateItem(Payment p) {
+		String output = "";
+		try {
+			Connection con = connect();
+			if (con == null) {
+				return "Error while connecting to the database for updating.";
+			}
+			// create a prepared statement
+			String query = "UPDATE `tblpayment` SET `user_id` = ?, `appointment_id` = ?, `type` = ?, `method` = ?, `status` = ?, `amount` = ? WHERE (`payment_id` = ?);";
+
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			// binding values
+			preparedStmt.setString(1, p.userId);
+			preparedStmt.setString(2, p.appointmentId);
+			preparedStmt.setString(3, p.type.toString());
+			preparedStmt.setString(4, p.method.toString());
+			preparedStmt.setString(5, p.status.toString());
+			preparedStmt.setDouble(6, p.amount);
+
+			preparedStmt.setInt(7, p.paymentId);
+			// execute the statement
+			preparedStmt.execute();
+			con.close();
+			output = "Updated successfully";
+		} catch (Exception e) {
+			output = "Error while updating the item.";
+			System.err.println(e.getMessage());
+		}
+		return output;
+	}
+
+	public static String deleteItem(Payment p) {
+		String output = "";
+		try {
+			Connection con = connect();
+			if (con == null) {
+				return "Error while connecting to the database for deleting.";
+			}
+			// create a prepared statement
+			String query = "delete from `tblpayment` where `payment_id` = ?";
+			
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			// binding values
+			preparedStmt.setInt(1, p.paymentId);
+			// execute the statement
+			preparedStmt.execute();
+			con.close();
+			output = "Deleted successfully";
+		} catch (Exception e) {
+			output = "Error while deleting the item.";
 			System.err.println(e.getMessage());
 		}
 		return output;
