@@ -1,0 +1,124 @@
+/* Header Image*/ 
+ 
+header img  {  
+float: left;  
+width: 150px;  
+height: 65px; 
+} 
+ 
+/* Body */ 
+ 
+body {  
+background-color: #d3d3d3; 
+} 
+ 
+/* Login Menu */ 
+ 
+#login li  {  
+display: inline;  
+float: right;  
+padding:10px; } 
+ 
+header {  
+background-color: #808080;  
+padding: 5px; } 
+ 
+header h1  {  
+color: white;  
+margin-left: 81%;  
+margin-top: 60px
+ } 
+ 
+/* Main Menu */ 
+ 
+#menu li  {  
+display: inline;  
+padding-right: 50px;  
+color: white; 
+} 
+ 
+#menu a {  
+text-decoration: none; 
+} 
+ 
+#menu { 
+ background-color: #333333;  
+ margin-bottom: 0px;  
+ padding-left: 20px;  
+ padding-bottom: 5px;  
+ padding-top: 5px; 
+} 
+ 
+/* Side Menu */ 
+ 
+#sMenu {  
+float: left;  
+padding: 10px;  
+border-right: solid 1px #808080;  
+width: 15%;  
+padding-bottom: 0px; 
+} 
+
+#sMenu a {  
+text-decoration: none;
+ } 
+ 
+  
+#sMenu li {  
+text-decoration: none;  
+list-style: none; 
+ margin-left: -40px; 
+} 
+ 
+#sMenu dd {  
+margin-left: 0px;  
+padding-top: 10px;  
+padding-bottom: 10px;  
+} 
+ 
+/* Cover image */ 
+ 
+#cover {  width: 1101px;  
+height: 500px;  
+margin-left: 10px;  
+margin-top: 10px; 
+} 
+ 
+/* Bottom Menu */ 
+ 
+#facilities {  
+position: relative;  
+left: 10px; 
+}  
+
+ #facilities img {  
+width: 100px;  
+height: 60px; 
+} 
+ 
+.img /* Each block with black border */ 
+{  
+float: left;  
+border: solid 1px black;  
+margin-left: 15px;  
+padding: 10px;  
+width: 175px;  
+color: black 
+} 
+ 
+footer {  
+float: left;  
+width: 100%;  
+background-color: #808080;  
+color: white;  
+text-align: center;  
+padding-top: 5px;  
+padding-bottom: 5px;  
+margin-top: 10px; 
+} 
+
+
+
+
+
+
