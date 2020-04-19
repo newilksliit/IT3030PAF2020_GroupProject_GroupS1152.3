@@ -28,7 +28,6 @@ public class View {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.TEXT_PLAIN })
 	public Response postMessage(List<Payment> list) {
-		System.out.println("Message received: " + list);
 		return Response.ok().entity(PaymentController.insertItem(list.get(0))).build();
 	}
 
