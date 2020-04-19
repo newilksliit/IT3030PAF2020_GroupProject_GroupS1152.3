@@ -52,7 +52,8 @@ public class DoctorService {
 	public String updateDoctor(String doctorData){  
 		JsonObject doctorObject = new JsonParser().parse(doctorData).getAsJsonObject(); 
 		 
-		String docId = doctorObject.get("docId").getAsString();
+		String dId = doctorObject.get("docId").getAsString();
+		int docId = Integer.parseUnsignedInt(dId);
 		String dName = doctorObject.get("dName").getAsString();  
 		String specialization = doctorObject.get("specialization").getAsString(); 
 		String charges = doctorObject.get("charges").getAsString();

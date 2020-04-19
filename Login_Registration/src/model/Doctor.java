@@ -115,7 +115,7 @@ public class Doctor{
 		return output; 
  } 
 
-	public String updateDoctor(String docId, String dName, String specialization, String charges, int hId){
+	public String updateDoctor(int docId, String dName, String specialization, String charges, int hId){
 		String output = ""; 
 	 
 		try{    
@@ -125,14 +125,15 @@ public class Doctor{
 			if (con == null)    
 				{return "Error while connecting to the database for updating."; } 
 	 
-	       String query = "UPDATE doctor SET dName=?, specialization=?, charges=?, hospital=?" + "WHERE docId=?"; 
+	       String query = "UPDATE doctor SET dName=?, specialization=?, charges=?, hospital=? WHERE docId=?"; 
 	 
 	       PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 
 	       preparedStmt.setString(1, dName);
 	       preparedStmt.setString(2, specialization);    
 	       preparedStmt.setString(3, charges);     
-	       preparedStmt.setInt(5, hId);
+	       preparedStmt.setInt(4, hId);
+	       preparedStmt.setInt(5, docId);
 	 
 	       preparedStmt.execute();    
 	       con.close(); 
