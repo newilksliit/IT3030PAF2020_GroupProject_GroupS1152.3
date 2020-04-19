@@ -71,7 +71,7 @@ public class PharmCust_PresOrder {
 			//////// insert into Order Table ////////////
 			Integer UserID = 2; // Must take User ID according to login******
 
-			String addOrderquery = "insert into `order`(`orderDate`, `confirmationStatus`, `userID`) values (current_date(), 'Confirmed', '"
+			String addOrderquery = "insert into `order`(`orderDate`, `confirmationStatus`, `userID`) values(current_date(), 'Confirmed', '"
 					+ UserID + "')";
 
 			PreparedStatement preparedStmtToOrder = con.prepareStatement(addOrderquery,
