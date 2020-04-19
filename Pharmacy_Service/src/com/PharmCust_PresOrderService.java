@@ -31,7 +31,7 @@ import org.apache.commons.io.IOUtils;
 
 @Path("/PharmCust_PresOrder")
 public class PharmCust_PresOrderService {
-	
+
 	PharmCust_PresOrder orderObj = new PharmCust_PresOrder();
 
 	//////
@@ -46,8 +46,8 @@ public class PharmCust_PresOrderService {
 			throws IOException, URISyntaxException {
 
 		///// "D:\\git-remote\\IT3030PAF2020_GroupProject_GroupS1152.3\\Pharmacy_Service\\WebContent\\images_prescription";
-		
-		String SAVE_DIRECTORY = "C:\\Prescription_Images"; // Can change the path 
+
+		String SAVE_DIRECTORY = "C:\\Prescription_Images"; // Can change the path
 
 		if (inputStream != null || fileDetail != null) {
 
@@ -95,4 +95,18 @@ public class PharmCust_PresOrderService {
 			file.mkdir();
 		}
 	}
+	
+	
+	//////
+	///////// Prescription Orders
+	///////// Read Prescription Order ////////////////
+	@GET
+	@Path("/Invoice")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String buyPresOrder() {
+		return orderObj.buyPresOrder();
+	}
+
+
+	
 }
