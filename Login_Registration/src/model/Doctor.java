@@ -36,8 +36,10 @@ public class Doctor{
  
 		 
 			String query = " insert into doctor (`docId`, `dusername`, `dpassword`, `dName`, `specialization`, `charges`, `hospital`)" + " values (?, ?, ?, ?, ?, ?, ?)"; 
- 
-			PreparedStatement preparedStmt = con.prepareStatement(query); 
+			String Query = "insert into user (`username`, `password`)" + " values(?, ?)";
+			
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			PreparedStatement prepStm = con.prepareStatement(Query);
      
 			 preparedStmt.setInt(1, 0);
 			 preparedStmt.setString(2, dusername);
@@ -46,9 +48,12 @@ public class Doctor{
 			 preparedStmt.setString(5, specialization);
 			 preparedStmt.setString(6, charges);
 			 preparedStmt.setInt(7, hospital);
-		 
+			 
+			 prepStm.setString(1, dusername);
+			 prepStm.setString(2, dpassword);
 		
 			 preparedStmt.execute();
+			 prepStm.execute();
 			 con.close(); 
 		 
 			 output = "Inserted successfully";

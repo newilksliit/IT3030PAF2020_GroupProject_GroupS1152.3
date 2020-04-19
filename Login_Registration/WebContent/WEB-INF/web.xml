@@ -13,5 +13,9 @@
       <servlet-name>Jersey Web Application</servlet-name>
       <url-pattern>/HospitalService/*</url-pattern>
    </servlet-mapping>
+   <servlet-mapping>
+      <servlet-name>Jersey Web Application</servlet-name>
+      <url-pattern>/DoctorService/*</url-pattern>
+   </servlet-mapping>
   <display-name>Login_Registration</display-name>
 </web-app>

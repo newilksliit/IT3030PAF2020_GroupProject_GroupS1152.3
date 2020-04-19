@@ -36,8 +36,10 @@ public class Patient{
  
 		 
 			String query = " insert into patient (`pId`, `pusername`, `ppassword`, `email`, `fName`, `lName`, `dob`, `ccNo`, `expDate`, `cvc`)" + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
- 
+			String Query = "insert into user (`username`, `password`)" + " values(?, ?)";
+			
 			PreparedStatement preparedStmt = con.prepareStatement(query); 
+			PreparedStatement prepStm = con.prepareStatement(Query);
      
 			 preparedStmt.setInt(1, 0);
 			 preparedStmt.setString(2, pusername);
@@ -49,9 +51,13 @@ public class Patient{
 			 preparedStmt.setString(8, ccNo);
 			 preparedStmt.setString(9, expDate);
 			 preparedStmt.setString(10, cvc);
+			 
+			 prepStm.setString(1, pusername);
+			 prepStm.setString(2, ppassword);
 		 
 		
 			 preparedStmt.execute();
+			 prepStm.execute();
 			 con.close(); 
 		 
 			 output = "Inserted successfully";

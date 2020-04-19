@@ -36,16 +36,22 @@ public class Hospital{
  
 		 
 			String query = " insert into hospital (`hId`, `husername`, `hpassword`, `hName`, `address`)" + " values (?, ?, ?, ?, ?)"; 
- 
+			String Query = "insert into user (`username`, `password`)" + " values(?, ?)";
+			
 			PreparedStatement preparedStmt = con.prepareStatement(query); 
+			PreparedStatement prepStm = con.prepareStatement(Query);
      
 			 preparedStmt.setInt(1, 0);
 			 preparedStmt.setString(2, husername);
 			 preparedStmt.setString(3, hpassword);
 			 preparedStmt.setString(4, hName);
 			 preparedStmt.setString(5, address);
+			 
+			 prepStm.setString(1, husername);
+			 prepStm.setString(2, hpassword);
 			 		
 			 preparedStmt.execute();
+			 prepStm.execute();
 			 con.close(); 
 		 
 			 output = "Inserted successfully";
