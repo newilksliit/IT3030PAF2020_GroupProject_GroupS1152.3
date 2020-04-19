@@ -39,7 +39,7 @@ public class PatientService {
 								@FormParam("fName") String fName,
 								@FormParam("lName") String lName,
 								@FormParam("dob") String dob,
-								@FormParam("ccNo") int ccNo,
+								@FormParam("ccNo") String ccNo,
 								@FormParam("expDate") String expDate,
 								@FormParam("cvc") int cvc){
 		
@@ -47,5 +47,28 @@ public class PatientService {
 		return output; 
 		
 	} 
+	
+	@PUT 
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_JSON) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String updatePatient(String patientData){  
+		JsonObject patientObject = new JsonParser().parse(patientData).getAsJsonObject(); 
+		 
+		String pId = patientObject.get("pId").getAsString();  
+		String fName = patientObject.get("fName").getAsString();  
+		String lName = patientObject.get("lName").getAsString();  
+		String email = patientObject.get("email").getAsString(); 
+		String dob = patientObject.get("dob").getAsString();
+		String ccNo = patientObject.get("ccNo").getAsString();
+		String expDate = patientObject.get("expDate").getAsString();
+		Integer cvc = patientObject.get("cvc").getAsInt();
+		 
+		String output = patientObj.updatePatient(pId, fName, lName, email, dob, ccNo, expDate, cvc);
+		 
+		return output; 
+		
+	} 
+		 
 	 
 } 

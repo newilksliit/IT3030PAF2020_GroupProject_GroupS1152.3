@@ -23,7 +23,7 @@ public class Patient{
 		return con;
 		} 
  
-	public String insertPatient(String pusername, String ppassword, String email, String fName, String lName, String dob, int ccNo, String expDate, int cvc){
+	public String insertPatient(String pusername, String ppassword, String email, String fName, String lName, String dob, String ccNo, String expDate, int cvc){
 	 
 		String output = ""; 
  
@@ -46,7 +46,7 @@ public class Patient{
 			 preparedStmt.setString(5, fName);
 			 preparedStmt.setString(6, lName);
 			 preparedStmt.setString(7, dob);
-			 preparedStmt.setInt(8, ccNo);
+			 preparedStmt.setString(8, ccNo);
 			 preparedStmt.setString(9, expDate);
 			 preparedStmt.setInt(10, cvc);
 		 
@@ -88,8 +88,8 @@ public class Patient{
 				String fName = rs.getString("fName");     
 				String lName = rs.getString("lName");     
 				String email = rs.getString("email");     
-				Date dob = (rs.getDate("dob"));
-				Integer ccNo = rs.getInt("ccNo");
+				String dob = rs.getString("dob");
+				String ccNo = rs.getString("ccNo");
 			
 
 			output += "<tr><td>" + pId + "</td>";     
@@ -114,7 +114,7 @@ public class Patient{
 		return output; 
  } 
 
-	public String updatePatient(String pId, String fName, String lName, String email, String dob, int ccNo, String expDate, int cvc){
+	public String updatePatient(String pId, String fName, String lName, String email, String dob, String ccNo, String expDate, int cvc){
 		String output = ""; 
 	 
 		try{    
@@ -132,7 +132,7 @@ public class Patient{
 	       preparedStmt.setString(2, lName);    
 	       preparedStmt.setString(3, email);    
 	       preparedStmt.setString(4, dob);    
-	       preparedStmt.setInt(5, ccNo);
+	       preparedStmt.setString(5, ccNo);
 	       preparedStmt.setString(6, expDate);
 	       preparedStmt.setInt(7, cvc);
 	 
