@@ -134,14 +134,14 @@ public class Patient{
 	 
 	       PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 
-	       preparedStmt.setString(1, pId);
-	       preparedStmt.setString(2, fName);
-	       preparedStmt.setString(3, lName);    
-	       preparedStmt.setString(4, email);    
-	       preparedStmt.setString(5, dob);    
-	       preparedStmt.setString(6, ccNo);
-	       preparedStmt.setString(7, expDate);
-	       preparedStmt.setString(8, cvc);
+	       preparedStmt.setString(1, fName);
+	       preparedStmt.setString(2, lName);    
+	       preparedStmt.setString(3, email);    
+	       preparedStmt.setString(4, dob);    
+	       preparedStmt.setString(5, ccNo);
+	       preparedStmt.setString(6, expDate);
+	       preparedStmt.setString(7, cvc);
+	       preparedStmt.setString(8, pId);
 	 
 	       preparedStmt.execute();
 	       con.close(); 

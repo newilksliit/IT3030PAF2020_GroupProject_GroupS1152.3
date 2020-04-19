@@ -123,9 +123,10 @@ public class Hospital{
 	 
 	       PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 
-	       preparedStmt.setInt(1, hId);
-	       preparedStmt.setString(2, hName);
-	       preparedStmt.setString(3, address);    
+	       
+	       preparedStmt.setString(1, hName);
+	       preparedStmt.setString(2, address);
+	       preparedStmt.setInt(3, hId);
 	       	 
 	       preparedStmt.execute();    
 	       con.close(); 
