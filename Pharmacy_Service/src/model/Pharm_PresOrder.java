@@ -178,10 +178,10 @@ public class Pharm_PresOrder {
 		return output;
 	}
 
-////////////Update TempPresTable - add Quantity - Pharmacist //////////
-// **Scenario - Pharmacist enter the quantity according to prescription**//
-//////// According to quantity, Line Total will be calculated and updated //////
-/////////// ///////////////////////////////////////////////////////////////////
+	//////////// Update TempPresTable - add Quantity - Pharmacist //////////
+	// **Scenario - Pharmacist enter the quantity according to prescription**//
+	//////// According to quantity, Line Total will be calculated and updated //////
+	/////////// ///////////////////////////////////////////////////////////////////
 	public String updatePresTempTable(Integer ID, Integer quantity) {
 		String output = "";
 		Integer quantity_available = 0;
@@ -226,6 +226,37 @@ public class Pharm_PresOrder {
 
 		} catch (Exception e) {
 			output = "Error while updating the drug details!";
+			System.err.println(e.getMessage());
+		}
+		return output;
+	}
+
+	/// Delete a listed Drug from TempPresTable - Pharmacist /////
+	//// **** Scenario - Pharmacist deleted a listed drug *****//////
+	/////////// ////////////////////////////////////////////////////
+	public String deleteListedDrugPres(Integer ID) {
+		String output = "";
+
+		try {
+			Connection con = connect();
+			if (con == null) {
+				return "Error while connecting to the database for deleting.";
+			}
+
+			// create a prepared statement
+			String query = "delete from `#temptable_prescription` where tempPresID=?";
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+
+			// binding values
+			preparedStmt.setInt(1, ID);
+
+			// execute the statement
+			preparedStmt.execute();
+			con.close();
+			output = "Deleted successfully";
+
+		} catch (Exception e) {
+			output = "Error while deleting the drug.";
 			System.err.println(e.getMessage());
 		}
 		return output;
