@@ -217,7 +217,6 @@ public class PharmCust_Order {
 	////// This request will generate from BUY - Customer //////
 	////// Calculate Total Price of Order ////////////////////
 	////// *** Must direct to online payment portal///////////////
-	///////// **** Data should pass to an INVOICE template ////////
 	public String buyOrder() {
 		String output = "";
 		Double TotalPrice = 0.0;
