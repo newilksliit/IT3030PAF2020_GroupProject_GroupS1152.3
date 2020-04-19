@@ -40,7 +40,34 @@ public class HospitalService {
 	
 	}
 		
+	@PUT 
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_JSON) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String updateHospital(String hospitalData){  
+		JsonObject hospitalObject = new JsonParser().parse(hospitalData).getAsJsonObject(); 
 		 
+		String id = hospitalObject.get("hId").getAsString();
+		int hId = Integer.parseUnsignedInt(id);
+		String hName = hospitalObject.get("hName").getAsString();  
+		String address = hospitalObject.get("address").getAsString();  
 		
+		String output = hospitalObj.updateHospital(hId, hName, address);
+		 
+		return output; 
+		
+	} 	 
+	
+	@DELETE
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_XML) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String deleteHospital(String hospitalData) { 
+		Document doc = Jsoup.parse(hospitalData, "", Parser.xmlParser());       
+		String hId = doc.select("hId").text(); 
+		 
+		 String output = hospitalObj.deleteHospital(hId); 
+		 
+		 return output; } 
 
 	} 

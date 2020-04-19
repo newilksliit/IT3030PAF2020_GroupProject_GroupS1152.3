@@ -23,7 +23,7 @@ public class Patient{
 		return con;
 		} 
  
-	public String insertPatient(String pusername, String ppassword, String email, String fName, String lName, String dob, String ccNo, String expDate, int cvc){
+	public String insertPatient(String pusername, String ppassword, String email, String fName, String lName, String dob, String ccNo, String expDate, String cvc){
 	 
 		String output = ""; 
  
@@ -48,7 +48,7 @@ public class Patient{
 			 preparedStmt.setString(7, dob);
 			 preparedStmt.setString(8, ccNo);
 			 preparedStmt.setString(9, expDate);
-			 preparedStmt.setInt(10, cvc);
+			 preparedStmt.setString(10, cvc);
 		 
 		
 			 preparedStmt.execute();
@@ -114,7 +114,7 @@ public class Patient{
 		return output; 
  } 
 
-	public String updatePatient(String pId, String fName, String lName, String email, String dob, String ccNo, String expDate, int cvc){
+	public String updatePatient(String pId, String fName, String lName, String email, String dob, String ccNo, String expDate, String cvc){
 		String output = ""; 
 	 
 		try{    
@@ -124,19 +124,20 @@ public class Patient{
 			if (con == null)    
 				{return "Error while connecting to the database for updating."; } 
 	 
-	       String query = "UPDATE patient SET fName=?, lName=?, email=?, dobc=?, ccNo=?, expDate=?, cvc=?" + "WHERE pId=?"; 
+	       String query = "UPDATE patient SET fName=?, lName=?, email=?, dob=?, ccNo=?, expDate=?, cvc=?" + "WHERE pId=?"; 
 	 
 	       PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 
-	       preparedStmt.setString(1, fName);
-	       preparedStmt.setString(2, lName);    
-	       preparedStmt.setString(3, email);    
-	       preparedStmt.setString(4, dob);    
-	       preparedStmt.setString(5, ccNo);
-	       preparedStmt.setString(6, expDate);
-	       preparedStmt.setInt(7, cvc);
+	       preparedStmt.setString(1, pId);
+	       preparedStmt.setString(2, fName);
+	       preparedStmt.setString(3, lName);    
+	       preparedStmt.setString(4, email);    
+	       preparedStmt.setString(5, dob);    
+	       preparedStmt.setString(6, ccNo);
+	       preparedStmt.setString(7, expDate);
+	       preparedStmt.setString(8, cvc);
 	 
-	       preparedStmt.execute();    
+	       preparedStmt.execute();
 	       con.close(); 
 	 
 	       output = "Updated successfully";   

@@ -103,7 +103,7 @@ public class Hospital{
 		return output; 
  } 
 
-	public String updateHospital(String hId, String hName, String address){
+	public String updateHospital(int hId, String hName, String address){
 		String output = ""; 
 	 
 		try{    
@@ -117,8 +117,9 @@ public class Hospital{
 	 
 	       PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 
-	       preparedStmt.setString(1, hName);
-	       preparedStmt.setString(2, address);    
+	       preparedStmt.setInt(1, hId);
+	       preparedStmt.setString(2, hName);
+	       preparedStmt.setString(3, address);    
 	       	 
 	       preparedStmt.execute();    
 	       con.close(); 

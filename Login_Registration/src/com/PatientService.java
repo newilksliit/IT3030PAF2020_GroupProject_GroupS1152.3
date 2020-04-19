@@ -41,7 +41,7 @@ public class PatientService {
 								@FormParam("dob") String dob,
 								@FormParam("ccNo") String ccNo,
 								@FormParam("expDate") String expDate,
-								@FormParam("cvc") int cvc){
+								@FormParam("cvc") String cvc){
 		
 		String output = patientObj.insertPatient(pusername, ppassword, email, fName, lName, dob, ccNo, expDate, cvc); 
 		return output; 
@@ -62,7 +62,7 @@ public class PatientService {
 		String dob = patientObject.get("dob").getAsString();
 		String ccNo = patientObject.get("ccNo").getAsString();
 		String expDate = patientObject.get("expDate").getAsString();
-		Integer cvc = patientObject.get("cvc").getAsInt();
+		String cvc = patientObject.get("cvc").getAsString();
 		 
 		String output = patientObj.updatePatient(pId, fName, lName, email, dob, ccNo, expDate, cvc);
 		 
@@ -70,5 +70,18 @@ public class PatientService {
 		
 	} 
 		 
-	 
+	@DELETE
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_XML) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String deletePatient(String patientData) { 
+		Document doc = Jsoup.parse(patientData, "", Parser.xmlParser());       
+		String pId = doc.select("pId").text(); 
+		 
+		 String output = patientObj.deletePatient(pId); 
+		 
+		 return output; 
+		 
+	} 
+		  
 } 
