@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <servlet>
-     <servlet-name>Jersey Web Application</servlet-name>
-     <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-     <load-on-startup>1</load-on-startup>
-   </servlet>  
-   <servlet-mapping>
-      <servlet-name>Jersey Web Application</servlet-name>
-      <url-pattern>/PatientService/*</url-pattern>
-   </servlet-mapping>
-   <servlet-mapping>
-      <servlet-name>Jersey Web Application</servlet-name>
-      <url-pattern>/HospitalService/*</url-pattern>
-   </servlet-mapping>
-   <servlet-mapping>
-      <servlet-name>Jersey Web Application</servlet-name>
-      <url-pattern>/DoctorService/*</url-pattern>
-   </servlet-mapping>
-   <servlet-mapping>
-      <servlet-name>Jersey Web Application</servlet-name>
-      <url-pattern>/LoginService/*</url-pattern>
-   </servlet-mapping>
-   <servlet-mapping>
-      <servlet-name>Jersey Web Application</servlet-name>
-      <url-pattern>/MainController/*</url-pattern>
-   </servlet-mapping>
-  <display-name>Login_Registration</display-name>
+    <servlet-name>Jersey Web Application</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Jersey Web Application</servlet-name>
+    <url-pattern>/PatientService/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Jersey Web Application</servlet-name>
+    <url-pattern>/HospitalService/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Jersey Web Application</servlet-name>
+    <url-pattern>/DoctorService/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Jersey Web Application</servlet-name>
+    <url-pattern>/LoginService/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Jersey Web Application</servlet-name>
+    <url-pattern>/MainController/*</url-pattern>
+  </servlet-mapping>
+  <display-name>User Registration</display-name>
 </web-app>
