@@ -62,39 +62,6 @@ public class Pharm_PresOrderService {
 		return output;
 	}
 
-	//////
-	///////// Prescription Orders
-	///////// Update Quantity (wanted) - Pharmacist ////////////////
-	@PUT
-	@Path("/")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String updatePresTempTable(String drugData) {
-
-		JsonObject drugObject = new JsonParser().parse(drugData).getAsJsonObject();
-
-		// Read the values from the JSON object
-		Integer tempPresID = drugObject.get("tempPresID").getAsInt();
-		Integer actualQuantity = drugObject.get("actualQuantity").getAsInt();
-
-		String output = orderObj.updatePresTempTable(tempPresID, actualQuantity);
-		return output;
-	}
-
-	//////
-	////////// Prescription Orders
-	///////// Delete a listed Drug - Pharmacist ////////////////
-	@DELETE
-	@Path("/")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteListedDrugPres(String drugData) {
-		JsonObject drugObject = new JsonParser().parse(drugData).getAsJsonObject();
-
-		Integer tempPresID = drugObject.get("tempPresID").getAsInt();
-
-		String output = orderObj.deleteListedDrugPres(tempPresID);
-		return output;
-	}
+	
 
 }
