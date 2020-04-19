@@ -98,7 +98,7 @@ public class Pharm_Drug {
 				array.put(drug);
 			}
 			
-			json.put("List", array);
+			json.put("List", array);		
 			con.close();
 
 		} catch (Exception e) {
